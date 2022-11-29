@@ -1,0 +1,23 @@
+{
+  "name": "a99-team-22",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Social Media project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjhites/a99-team-22.git"
+  },
+  "author": "bjhites, MatthewKolsch,xzkxu",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/bjhites/a99-team-22/issues"
+  },
+  "homepage": "https://github.com/bjhites/a99-team-22#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
