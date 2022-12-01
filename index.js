@@ -15,7 +15,7 @@ const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
 // Using morgan to log every API call
 app.use(morgan('combined', { stream: accesslog }));
 
-var port = 5000
+var port = 5005
 
 app.get('/login', (req,res,next) => {
 	res.status(200).sendFile(path.resolve('html_pages/index.html'))
@@ -30,7 +30,6 @@ app.get('/*', (req,res,next) => {
 	res.status(404).send("File not found");
 })
 
-
 app.listen(port, () => {
-	console.log("Server listening on port 5000")
+	console.log("Server listening on port 5005")
 })
