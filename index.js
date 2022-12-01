@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
-import db from 'better-sqlite3';
+import db from './database.js';
 import fs from 'fs';
 
 const app = express()
@@ -14,6 +14,16 @@ const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
 
 // Using morgan to log every API call
 app.use(morgan('combined', { stream: accesslog }));
+
+// Extract access info from req and res
+app.use((req, res, next) => {
+	let logdata = {
+		remote_addr: req.ip,
+	}
+	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
+	const info = statement.run(logdata.remote_addr);
+	next();
+})
 
 var port = 5005
 
