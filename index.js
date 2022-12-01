@@ -27,8 +27,13 @@ app.get('/profile', (req,res,next) => {
 
 app.put('/api/profile', (req,res,next) => {
 	console.log("User attempting to update profile info");
-	// DATABASE QUERY
-	res.status(200).send("Updated Profile")
+	// DATABASE QUERY adjust when more clarification
+	let sql = "UPDATE table \n SET column_1 = ?,\n column_2 = ?\n WHERE ? == username"
+	db.get(sql, [req.body.name, req.body.loc, req.body.diet, req.body.stat], (err, row) => { 
+		if(err) { res.status(500).send(err.message)}
+		else{res.status(200).send("Updated Profile")}
+	});
+	db.close()
 })
 app.post('/api/auth', (req,res,next) => {
 	console.log("User attempting to authenticate");
