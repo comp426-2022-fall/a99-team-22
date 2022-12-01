@@ -11,7 +11,16 @@ app.get('/login', (req,res,next) => {
 	res.status(200).sendFile(path.resolve('html_pages/index.html'))
 })
 
-app.post('/auth', (req,res,next) => {
+app.get('/profile', (req,res,next) => {
+	res.status(200).sendFile(path.resolve('html_pages/profile_edit.html'))
+})
+
+app.put('/api/profile', (req,res,next) => {
+	console.log("User attempting to update profile info");
+	// DATABASE QUERY
+	res.status(200).send("Updated Profile")
+})
+app.post('/api/auth', (req,res,next) => {
 	console.log("User attempting to authenticate");
 	res.status(200).send("Replace with user auth")
 })

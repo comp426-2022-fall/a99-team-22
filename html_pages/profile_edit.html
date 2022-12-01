@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media</title>
+  </head>
+  <body>
+    <main align="center">
+        <h1>Edit Profile</h1>  
+	<form action="http://localhost:5000/api/profile" method="put">
+		<label>Username:</label>
+		<input type="text" id="usrname"></input>
+		<br>
+		<div style="margin-top: 10px;">
+		<label>Name:</label>
+		<input type="text" id="name"></input>
+		<label>Location:</label>
+		<input type="text" id="loc"></input>
+		</div>
+		<div style="margin-top: 10px;">
+		<label>Diet:</label>
+		<input type="text" id="diet"></input>
+		<label>Status:</label>
+		<input type="text" id="stat"></input>
+		</div>
+		<br>
+		<input style="margin-top: 10px;"type="submit" value="Update"></input>
+	</form>
+    </main>
+  </body>
+</html>
