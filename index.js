@@ -30,7 +30,6 @@ app.get('/*', (req,res,next) => {
 	res.status(404).send("File not found");
 })
 
-
 app.listen(port, () => {
 	console.log("Server listening on port 5000")
 })
