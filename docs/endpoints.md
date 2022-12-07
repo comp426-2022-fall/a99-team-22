@@ -79,6 +79,9 @@ curl http://localhost:5000/user/delete/
 ```
 
 ### /*/
+```
+Error 404
+```
 ```json
 {"message":"File not found (404)"}
 ```
