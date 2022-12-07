@@ -2,7 +2,7 @@
 
 ## Social Media Server
 
-The project is basically a simple social media application. All
+The project is basically a simple model of social media application. All
 the user accounts are stored in the database. There are endpoints
 for users to create, update, and make posts through their account.
 Also, users can access other user's profile through specific
@@ -10,11 +10,22 @@ endpoint.
 
 ## Video Demo
 
+## Dependencies
+```
+"better-sqlite3": "^8.0.0",
+"express": "^4.18.2",
+"js": "^0.1.0",
+"morgan": "^1.10.0",
+"nodemon": "^2.0.20"
+```
+
 ## Install and run instructions
 
-To install, clone this repository and run `npm install`
+This currently works on Node v19.0.1
 
-To run, use `npm test` and the server will listen default to port 5000 
+1. Clone this repository to your local pc
+2. run `npm install` to install dependencies 
+3. To run the server, use `npm test` and the server will listen default to port 5000
 
 ## Team mangement
 
