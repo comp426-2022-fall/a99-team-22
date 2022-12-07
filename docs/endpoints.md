@@ -8,7 +8,7 @@ curl http://localhost:5005/login/
 ```
 
 ### /auth/
-Redirect to /user/info/:username/
+Authenticate and Redirect to /user/info/:username/
 ```
 curl http://localhost:5005/api/auth/
 ```
@@ -42,6 +42,17 @@ curl http://localhost:5005/user/delete/
 ```
 ```json
 {"changes": 1, "lastInsertRowid": 3 }
+```
+### /profile
+Display profile editing page
+```
+curl http://localhost:5005/profile/
+```
+
+### /api/profile
+Update user's profile and Redirect to /user/info/:username
+```
+curl http://localhost:5005/api/profile -d "username=Fregley&password=123&email=fregs@duke.unc.edu&phone=na&location=Durham&relationship=single and ready to mingle&mood=wanting cheese touch &diet=vegan"
 ```
 
 ### /*/
