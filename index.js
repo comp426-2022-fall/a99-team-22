@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 	let logdata = {
 		remote_addr: req.ip,
 	}
-	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
+	const statement = db.prepare('INSERT INTO access () VALUES ()'); // Keys that we're inserting goes into ()
 	const info = statement.run(logdata.remote_addr);
 	next();
 })
@@ -39,6 +39,10 @@ app.post('/user/new/', (req, res, next) => {
 		mood: req.body.mood,
 		diet: req.body.diet
 	}
+	// Ben - temp setup so I could postman a user into database to test my endpoints feel free to reject 
+		// const statement = db.prepare('INSERT INTO userinfo VALUES (0,?,?,?,?,?,?,?,?)');
+		// const info = statement.run(userdata.username, userdata.password, userdata.email, userdata.phone, "US", userdata.relationship, userdata.mood, userdata.diet);
+
 	console.log(userdata);
 })
 
@@ -47,8 +51,10 @@ app.get('/user/info/:username/', (req, res, next) => {
 	let userdata = {
 		username: req.params.username
 	}
-	// database query:
-	//db.prepare()
+	// Ben - temp setup to check whether my endpoint was updating database correctly, feel free to reject 
+		// const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?');
+		// const info = statement.get(userdata.username);
+	res.status(200).send(info)
 })
 
 // Modify user info endpoint
@@ -66,26 +72,45 @@ app.delete('/user/delete/', (req, res, next) => {
 })
 
 app.get('/login', (req,res,next) => {
-	res.status(200).sendFile(path.resolve('html_pages/index.html'))
+	res.status(200).sendFile(path.resolve('html_pages/index.html')) // send login page html file
 })
 
-app.get('/profile', (req,res,next) => {
-	res.status(200).sendFile(path.resolve('html_pages/profile_edit.html'))
+app.get('/profile/', (req,res,next) => {
+	res.status(200).sendFile(path.resolve('profile_edit.html')); // send profile editing html file
 })
 
-app.put('/api/profile', (req,res,next) => {
+app.post('/api/profile', (req,res,next) => {
 	console.log("User attempting to update profile info");
-	// DATABASE QUERY adjust when more clarification
-	let sql = "UPDATE table \n SET column_1 = ?,\n column_2 = ?\n WHERE ? == username"
-	db.get(sql, [req.body.name, req.body.loc, req.body.diet, req.body.stat], (err, row) => { 
-		if(err) { res.status(500).send(err.message)}
-		else{res.status(200).send("Updated Profile")}
-	});
-	db.close()
+	let userdata = {                    // assemble payload into userdata format
+		remote_addr: req.ip,
+		username: req.body.username,
+		email: req.body.email,
+		phone: req.body.phone,
+		location: req.body.location,
+		relationship: req.body.relationship,
+		mood: req.body.mood,
+		diet: req.body.diet,
+		password: req.body.password
+	}
+	const statement = db.prepare('UPDATE userinfo SET email=?,phone=?,location=?,relationship=?,mood=?,diet=? WHERE username = ? and password = ?'); // Update row w/ usrname & pswd combo
+	const info = statement.run(userdata.email,userdata.email, userdata.phone, userdata.relationship, userdata.mood, userdata.diet, userdata.username, userdata.password); // Run statement
+	res.redirect('/user/info/' + userdata.username);
 })
+
 app.post('/api/auth', (req,res,next) => {
 	console.log("User attempting to authenticate");
-	res.status(200).send("Replace with user auth")
+	let userLoginInfo = { 		// assemble payload into login format, TODO switch to hash passwords for security
+		username: req.body.username,
+		password: req.body.password
+	}
+	const statement = db.prepare('SELECT username FROM userinfo WHERE username = ? and password = ?'); // Get username where login info matches
+	const info = statement.get(userLoginInfo.username, userLoginInfo.password);
+	if(info == undefined){
+		res.redirect('/login');
+	}
+	else{
+		res.redirect('/user/info/' + info.username);
+	}			// if login was valid, redirect to that users profile page, otherwise refresh login
 })
 
 app.get('/*', (req,res,next) => {

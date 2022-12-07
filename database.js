@@ -9,11 +9,10 @@ const statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' 
 
 // To get information out of statement response
 let access_row = statement.get();
-
 // Create table if if doesn't exist
 if ( access_row === undefined ) {
     const accessLogInit = `
-        CREATE TABLE account (
+        CREATE TABLE access (
             id INTEGER PRIMARY KEY,
             remote_addr VARCHAR,
             remote_user VARCHAR,
@@ -24,7 +23,7 @@ if ( access_row === undefined ) {
             status VARCHAR,
             content_length VARCHAR,
             referer_url VARCHAR,
-            user_agent VARCHAR,
+            user_agent VARCHAR
         );
     `
     db.exec(accessLogInit)
@@ -38,9 +37,10 @@ let user_row = user_statement.get();
 
 if ( user_row === undefined ) {
     const userinfoInit = `
-        CREATE TABLE USERINFO (
+        CREATE TABLE userinfo (
             id INTEGER PRIMARY KEY,
             username VARCHAR,
+	    password VARCHAR,
             email VARCHAR,
             phone VARCHAR,
             location VARCHAR,
@@ -56,4 +56,5 @@ if ( user_row === undefined ) {
 
 // Use primary key in userinfo table as foreign key in password table
 
-module.exports = db
+//module.exports = db
+export default db; // this was the only way to get the db to work for me

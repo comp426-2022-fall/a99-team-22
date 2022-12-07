@@ -8,21 +8,32 @@
   <body>
     <main align="center">
         <h1>Edit Profile</h1>  
-	<form action="http://localhost:5000/api/profile" method="put">
+	<form action="http://localhost:5005/api/profile" method="post">
 		<label>Username:</label>
-		<input type="text" id="usrname"></input>
+		<input type="text" name="username"></input>
+		<br>
+		<div style="margin-top: 10px;">
+		<label>Email:</label>
+		<input type="text" name="email"></input>
+		<label>Phone:</label>
+		<input type="text" name="phone"></input>
 		<br>
 		<div style="margin-top: 10px;">
 		<label>Name:</label>
-		<input type="text" id="name"></input>
+		<input type="text" name="name"></input>
 		<label>Location:</label>
-		<input type="text" id="loc"></input>
+		<input type="text" name="location"></input>
 		</div>
 		<div style="margin-top: 10px;">
 		<label>Diet:</label>
-		<input type="text" id="diet"></input>
-		<label>Status:</label>
-		<input type="text" id="stat"></input>
+		<input type="text" name="diet"></input>
+		<label>Mood:</label>
+		<input type="text" name="mood"></input>
+		</div>
+		<br>
+		<div style="margin-top: 10px;">
+		<label>Relationship:</label>
+		<input type="text" name="relationship"></input>
 		</div>
 		<br>
 		<input style="margin-top: 10px;"type="submit" value="Update"></input>
