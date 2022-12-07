@@ -43,8 +43,12 @@ app.post('/user/new/', (req, res, next) => {
 })
 
 // Read user info endpoint
-app.get('/user/info/', (req, res, next) => {
-
+app.get('/user/info/:username/', (req, res, next) => {
+	let userdata = {
+		username: req.params.username
+	}
+	// database query:
+	//db.prepare()
 })
 
 // Modify user info endpoint
