@@ -52,8 +52,10 @@ app.get('/user/info/:username/', (req, res, next) => {
 })
 
 // Modify user info endpoint
-app.patch('/user/info/update/', (req, res, next) => {
-
+app.patch('/user/info/update/:username/', (req, res, next) => {
+	let userdata = {
+		username: req.params.username
+	}
 })
 
 // Delete user info endpoint
