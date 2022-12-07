@@ -2,86 +2,50 @@
 # Endpoints
 
 ### /login/
+Create login page
 ```
-
-```
-```
-curl http://localhost:5000/login/
-```
-```json
-{"message":""}
+curl http://localhost:5005/login/
 ```
 
 ### /auth/
+Redirect to /user/info/:username/
 ```
-
-```
-```
-curl http://localhost:5000/auth/
-```
-```json
-{"message":"Replace with user auth (200)"}
+curl http://localhost:5005/api/auth/
 ```
 
 ### /user/new/
+Create new user
 ```
-Create new user endpoint
-```
-```
-curl 
+curl http:/localhost:5005/user/new -d "username=Fregley&password=123&email=fregs@duke.unc.edu&phone=na&location=Durham&relationship=single and ready to mingle&mood=wanting cheese touch &diet=vegan"
 ```
 ```json
-{"message":""}
+{"message":"user Fregley created"}
 ```
 
 ### /user/info/:username/
-```
 Read user's profile according to username
 ```
-```
-curl 
-```
-```json
-{"message":""}
-```
-
-### /user/info/:username/
-```
-Read user's profile according to username
-```
-```
-curl http://localhost:5000/user/info/:username/
+curl http:/localhost:5005/user/info/Fregley
 ```
 ```json
-{"message":""}
+{"id":3,"username":"Fregley","email":"fregs@duke.unc.edu","phone":"na","location":"Durham","relationship":"single and ready to mingle","mood":"wanting cheese touch ","diet":"vegan"}
 ```
 
 ### /user/info/update/:username/
-```
-Modify user's profile according to username
-```
-```
-curl http://localhost:5000/user/info/update/:username/
-```
-```json
-{"message":""}
-```
+Modify user's profile according to username and password
+
 
 ### /user/delete/
-```
 Delete user's profile according to username
 ```
-```
-curl http://localhost:5000/user/delete/
+curl http://localhost:5005/user/delete/
 ```
 ```json
-{"message":""}
+{"changes": 1, "lastInsertRowid": 3 }
 ```
 
 ### /*/
-```
 Error 404
-```
 ```json
 {"message":"File not found (404)"}
 ```
