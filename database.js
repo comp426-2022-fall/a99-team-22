@@ -32,7 +32,7 @@ if ( access_row === undefined ) {
     console.log('Access log table exists.');
 }
 
-const user_statement = db.prepare('SELECT name FROM sqlite_master type='table' and name='userinfo';`)
+const user_statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='userinfo';`);
 
 let user_row = user_statement.get();
 
