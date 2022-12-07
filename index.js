@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
-import db from 'better-sqlite3';
+import db from './database.js';
 import fs from 'fs';
 
 const app = express()
@@ -15,7 +15,55 @@ const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
 // Using morgan to log every API call
 app.use(morgan('combined', { stream: accesslog }));
 
-var port = 5000
+// Extract access info from req and res
+app.use((req, res, next) => {
+	let logdata = {
+		remote_addr: req.ip,
+	}
+	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
+	const info = statement.run(logdata.remote_addr);
+	next();
+})
+
+var port = 5005
+
+// Create user endpoint
+app.post('/user/new/', (req, res, next) => {
+	let userdata = {
+		username: req.body.username,
+		password: req.body.password,
+		email: req.body.email,
+		phone: req.body.phone,
+		location: req.body.location,
+		relationship: req.body.relationship,
+		mood: req.body.mood,
+		diet: req.body.diet
+	}
+	console.log(userdata);
+})
+
+// Read user info endpoint
+app.get('/user/info/:username/', (req, res, next) => {
+	let userdata = {
+		username: req.params.username
+	}
+	// database query:
+	//db.prepare()
+})
+
+// Modify user info endpoint
+app.patch('/user/info/update/:username/', (req, res, next) => {
+	let userdata = {
+		username: req.params.username
+	}
+})
+
+// Delete user info endpoint
+app.delete('/user/delete/', (req, res, next) => {
+	let userdata = {
+		username: req.body.username
+	}
+})
 
 app.get('/login', (req,res,next) => {
 	res.status(200).sendFile(path.resolve('html_pages/index.html'))
@@ -44,7 +92,6 @@ app.get('/*', (req,res,next) => {
 	res.status(404).send("File not found");
 })
 
-
 app.listen(port, () => {
-	console.log("Server listening on port 5000")
+	console.log("Server listening on port 5005")
 })
