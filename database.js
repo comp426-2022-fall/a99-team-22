@@ -26,6 +26,7 @@ if ( access_row === undefined ) {
             referer_url VARCHAR,
             user_agent VARCHAR,
         );
+        INSERT INTO access (id, remote_addr, remote_user, datetime, method, url, http_version, status, content_length, referer_url, user_agent)
     `
     db.exec(accessLogInit)
 } else {
@@ -48,12 +49,14 @@ if ( user_row === undefined ) {
             mood VARCHAR,
             diet VARCHAR
         )
+        INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) 
     `
-    db.exec(userinfoInit)
+    db.exec(userinfoInit);
 } else {
-    console.log('User info table exists.')
+    console.log('User info table exists.');
 }
 
 // Use primary key in userinfo table as foreign key in password table
 
-module.exports = db
+//module.exports = db
+export default db;
