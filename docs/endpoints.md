@@ -12,7 +12,7 @@ Authenticate and Redirect to /user/info/:username/
 ```
 curl http://localhost:5005/api/auth/
 ```
-To be implemented improve security, hash passwords
+To be implemented: improve security, hash passwords
 
 ### /user/new/
 Create new user
@@ -22,6 +22,7 @@ curl http:/localhost:5005/user/new -d "username=Fregley&password=123&email=fregs
 ```json
 {"message":"user Fregley created"}
 ```
+To be implemented: Account creation page
 
 ### /user/info/:username/
 Read user's profile according to username
@@ -33,7 +34,7 @@ curl http:/localhost:5005/user/info/Fregley
 ```
 
 ### /user/info/update/:username/
-Modify user's profile according to username and password
+To be Implemented: Modify user's profile according to username and password
 
 
 ### /user/delete/
