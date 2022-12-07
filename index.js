@@ -66,18 +66,15 @@ app.get('/user/info/:username/', (req, res, next) => {
 	console.log(info);
 })
 
-// Modify user info endpoint
-app.patch('/user/info/update/:username/', (req, res, next) => {
-	let userdata = {
-		username: req.params.username
-	}
-})
-
 // Delete user info endpoint
-app.delete('/user/delete/', (req, res, next) => {
+app.post('/user/delete/', (req, res, next) => {
 	let userdata = {
-		username: req.body.username
+		username: req.body.username,
+		password: req.body.password
 	}
+	const statement = db.prepare('DELETE FROM userinfo WHERE username = ? and password = ?');
+	const info = statement.run(userdata.username, userdata.password);
+	res.status(200).send(info);
 })
 
 app.get('/login', (req,res,next) => {
@@ -85,7 +82,7 @@ app.get('/login', (req,res,next) => {
 })
 
 app.get('/profile/', (req,res,next) => {
-	res.status(200).sendFile(path.resolve('profile_edit.html')); // send profile editing html file
+	res.status(200).sendFile(path.resolve('html_pages/profile_edit.html')); // send profile editing html file
 })
 
 app.post('/api/profile', (req,res,next) => {
