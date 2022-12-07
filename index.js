@@ -60,7 +60,9 @@ app.patch('/user/info/update/:username/', (req, res, next) => {
 
 // Delete user info endpoint
 app.delete('/user/delete/', (req, res, next) => {
-
+	let userdata = {
+		username: req.body.username
+	}
 })
 
 app.get('/login', (req,res,next) => {
