@@ -39,10 +39,12 @@ and coding tasks
 Implement assigned coding tasks. If anyone run into any unsolved
 tasks or problems, binging to the next meeting.
 
-### Meeting #2: Dec.06 5:30 p.m
+### Meeting #3: Dec.06 5:30 p.m
 - A small meeting to update the progress
 - Solving the problem of Zhaokun not able to push to new branch
 
 #### plans:
 Prepare to wrapping up the coding part in one or two days and
 then do the demo video.
+
+### Meeting #4: Dec.07 4:00 p.m
