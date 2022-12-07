@@ -26,13 +26,17 @@ if ( access_row === undefined ) {
             referer_url VARCHAR,
             user_agent VARCHAR,
         );
-        INSERT INTO access (id, remote_addr, remote_user, datetime, method, url, http_version, status, content_length, referer_url, user_agent)
     `
-    db.exec(accessLogInit)
+    try {
+        db.exec(accessLogInit);
+    } catch (error) {
+        console.log(error);
+    }
+
 } else {
     console.log('Access log table exists.');
 }
-
+// 42.22
 const user_statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='userinfo';`);
 
 let user_row = user_statement.get();
@@ -49,9 +53,13 @@ if ( user_row === undefined ) {
             mood VARCHAR,
             diet VARCHAR
         )
-        INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) 
+        INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES ('X-MattAttack-X','kolsch@email.unc.edu','704-000-0000','Chapel Hill','cuffed','stressed','omnivore')
     `
-    db.exec(userinfoInit);
+    try {
+        db.exec(userinfoInit);
+    } catch (error) {
+        console.log("error");
+    }
 } else {
     console.log('User info table exists.');
 }
