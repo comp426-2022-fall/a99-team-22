@@ -98,8 +98,9 @@ app.post('/api/profile', (req,res,next) => {
 		diet: req.body.diet,
 		password: req.body.password
 	}
-	const statement = db.prepare('UPDATE userinfo SET email=?,phone=?,location=?,relationship=?,mood=?,diet=? WHERE username = ? and password = ?'); // Update row w/ usrname & pswd combo
-	const info = statement.run(userdata.email,userdata.email, userdata.phone, userdata.relationship, userdata.mood, userdata.diet, userdata.username, userdata.password); // Run statement
+	const statement = db.prepare('UPDATE userinfo SET email=?,phone=?,location=?,relationship=?,mood=?,diet=? WHERE username = ?'); // Update row w/ usrname & pswd combo
+	const info = statement.run(userdata.email,userdata.email, userdata.phone, userdata.relationship, userdata.mood, userdata.diet, userdata.username); // Run statement
+	
 	res.redirect('/user/info/' + userdata.username);
 })
 
