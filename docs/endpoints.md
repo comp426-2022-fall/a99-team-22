@@ -12,6 +12,7 @@ Authenticate and Redirect to /user/info/:username/
 ```
 curl http://localhost:5005/api/auth/
 ```
+To be implemented improve security, hash passwords
 
 ### /user/new/
 Create new user
