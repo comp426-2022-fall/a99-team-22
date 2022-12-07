@@ -12,7 +12,7 @@ let access_row = statement.get();
 
 // Create table if if doesn't exist
 if ( access_row === undefined ) {
-    const accessLogInit = `
+    const sqlInit = `
         CREATE TABLE account (
             id INTEGER PRIMARY KEY,
             remote_addr VARCHAR,
@@ -24,11 +24,11 @@ if ( access_row === undefined ) {
             status VARCHAR,
             content_length VARCHAR,
             referer_url VARCHAR,
-            user_agent VARCHAR,
+            user_agent VARCHAR
         );
     `
     try {
-        db.exec(accessLogInit);
+        db.exec(sqlInit);
     } catch (error) {
         console.log(error);
     }
@@ -36,14 +36,13 @@ if ( access_row === undefined ) {
 } else {
     console.log('Access log table exists.');
 }
-// 42.22
 const user_statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='userinfo';`);
 
 let user_row = user_statement.get();
 
 if ( user_row === undefined ) {
-    const userinfoInit = `
-        CREATE TABLE USERINFO (
+    const sqlInit = `
+        CREATE TABLE userinfo (
             id INTEGER PRIMARY KEY,
             username VARCHAR,
             email VARCHAR,
@@ -52,11 +51,11 @@ if ( user_row === undefined ) {
             relationship VARCHAR,
             mood VARCHAR,
             diet VARCHAR
-        )
+        );
         INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES ('X-MattAttack-X','kolsch@email.unc.edu','704-000-0000','Chapel Hill','cuffed','stressed','omnivore')
     `
     try {
-        db.exec(userinfoInit);
+        db.exec(sqlInit);
     } catch (error) {
         console.log("error");
     }

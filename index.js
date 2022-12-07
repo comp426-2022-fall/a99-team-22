@@ -27,11 +27,12 @@ app.use((req, res, next) => {
 
 var port = 5005
 
+// To test: curl http:/localhost:5005/user/new -d "username=sdf&email=&..."    (might have to comment out password from userdata below)
 // Create user endpoint
 app.post('/user/new/', (req, res, next) => {
 	let userdata = {
 		username: req.body.username,
-		password: req.body.password,
+		//password: req.body.password,
 		email: req.body.email,
 		phone: req.body.phone,
 		location: req.body.location,
@@ -39,20 +40,20 @@ app.post('/user/new/', (req, res, next) => {
 		mood: req.body.mood,
 		diet: req.body.diet
 	}
-	const statement = db.prepare('INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES (?, ?, ?, ?, ?, ?, ?'); // referring to the variable names in our database (they don't have to be the same)
+	const statement = db.prepare('INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES (?, ?, ?, ?, ?, ?, ?)'); // referring to the variable names in our database (they don't have to be the same)
 	const info = statement.run(userdata.username, userdata.email, userdata.phone, userdata.location, userdata.relationship, userdata.mood, userdata.diet);
-	res.status(200).json({"messgae": "user " + userdata.username + " created"});
+	res.status(200).json({"message": "user " + userdata.username + " created"});
 	console.log(userdata);
 	console.log(info);
 })
 
+// To test: curl http:/localhost:5005/user/a_username_we_have
 // Read user info endpoint
 app.get('/user/info/:username/', (req, res, next) => {
-	let userdata = {
-		username: req.params.username
-	}
-	// database query:
-	//db.prepare()
+	const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?'); // select everything that matches from userinfo table
+	const info = statement.get(req.params.username);
+	res.status(200).json(info);
+	console.log(info);
 })
 
 // Modify user info endpoint
