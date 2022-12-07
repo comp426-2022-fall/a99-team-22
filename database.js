@@ -8,10 +8,10 @@ const db = new database('test.db');
 const statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='access';`);
 
 // To get information out of statement response
-let row = statement.get();
+let access_row = statement.get();
 
 // Create table if if doesn't exist
-if ( row === undefined ) {
+if ( access_row === undefined ) {
     const accessLogInit = `
         CREATE TABLE account (
             id INTEGER PRIMARY KEY,
@@ -30,6 +30,30 @@ if ( row === undefined ) {
     db.exec(accessLogInit)
 } else {
     console.log('Access log table exists.');
-};
+}
 
-export default db;
+const user_statement = db.prepare('SELECT name FROM sqlite_master type='table' and name='userinfo';`)
+
+let user_row = user_statement.get();
+
+if ( user_row === undefined ) {
+    const userinfoInit = `
+        CREATE TABLE USERINFO (
+            id INTEGER PRIMARY KEY,
+            username VARCHAR,
+            email VARCHAR,
+            phone VARCHAR,
+            location VARCHAR,
+            relationship VARCHAR,
+            mood VARCHAR,
+            diet VARCHAR
+        )
+    `
+    db.exec(userinfoInit)
+} else {
+    console.log('User info table exists.')
+}
+
+
+
+module.exports = db
