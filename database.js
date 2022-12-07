@@ -54,6 +54,6 @@ if ( user_row === undefined ) {
     console.log('User info table exists.')
 }
 
-
+// Use primary key in userinfo table as foreign key in password table
 
 module.exports = db
