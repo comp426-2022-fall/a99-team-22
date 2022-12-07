@@ -57,7 +57,7 @@ if ( user_row === undefined ) {
     try {
         db.exec(sqlInit);
     } catch (error) {
-        console.log("error 2");
+        console.log(error);
     }
 } else {
     console.log('User info table exists.');
