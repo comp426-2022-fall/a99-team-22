@@ -7,7 +7,7 @@ import fs from 'fs';
 const app = express()
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // this may not be needed
+app.use(express.urlencoded({ extended: true }));
 
 // 'a' = append (don't overwrite the file, add to it), assumes that log_dir exists
 const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
@@ -16,18 +16,26 @@ const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
 app.use(morgan('combined', { stream: accesslog }));
 
 // Extract access info from req and res
-// app.use((req, res, next) => {
-// 	let logdata = {
-// 		remote_addr: req.ip,
-// 	}
-// 	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
-// 	const info = statement.run(logdata.remote_addr);
-// 	next();
-// })
+app.use((req, res, next) => {
+	let logdata = {
+		remote_addr: req.ip,
+		remote_user: req.get('remote-user'),
+		datetime: req.get('datetime'),
+		method: req.get('method'),
+		url: req.get('url'),
+		http_version: req.get('http_version'),
+		status: req.get('status'),
+		content_length: req.get('content-length'),
+		referer_url: req.get('referer-url'),
+		user_agent: req.get('user-agent')
+	}
+	const statement = db.prepare('INSERT INTO access (remote_addr, remote_user, datetime, method, url, http_version, status, content_length, referer_url, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'); // Keys that we're inserting goes into ()
+	const info = statement.run(logdata.remote_addr, logdata.remote_user, logdata.datetime, logdata.method, logdata.url, logdata.http_version, logdata.status, logdata.content_length, logdata.referer_url, logdata.user_agent);
+	next();
+})
 
 var port = 5005
 
-// To test: curl http:/localhost:5005/user/new -d "username=sdf&email=&..."    (might have to comment out password from userdata below)
 // Create user endpoint
 app.post('/user/new/', (req, res, next) => {
 	let userdata = {
@@ -47,7 +55,6 @@ app.post('/user/new/', (req, res, next) => {
 	console.log(info);
 })
 
-// To test: curl http:/localhost:5005/user/a_username_we_have
 // Read user info endpoint
 app.get('/user/info/:username/', (req, res, next) => {
 	const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?'); // select everything that matches from userinfo table

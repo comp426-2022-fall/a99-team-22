@@ -13,7 +13,7 @@ let access_row = statement.get();
 // Create table if if doesn't exist
 if ( access_row === undefined ) {
     const sqlInit = `
-        CREATE TABLE account (
+        CREATE TABLE access (
             id INTEGER PRIMARY KEY,
             remote_addr VARCHAR,
             remote_user VARCHAR,
@@ -30,7 +30,7 @@ if ( access_row === undefined ) {
     try {
         db.exec(sqlInit);
     } catch (error) {
-        console.log("error 1");
+        console.log(error);
     }
 } else {
     console.log('Access log table exists.');
@@ -44,6 +44,7 @@ if ( user_row === undefined ) {
         CREATE TABLE userinfo (
             id INTEGER PRIMARY KEY,
             username VARCHAR,
+            password VARCHAR,
             email VARCHAR,
             phone VARCHAR,
             location VARCHAR,
@@ -62,7 +63,4 @@ if ( user_row === undefined ) {
     console.log('User info table exists.');
 }
 
-// Use primary key in userinfo table as foreign key in password table
-
-//module.exports = db
 export default db;
