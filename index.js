@@ -29,13 +29,8 @@ app.use((req, res, next) => {
 		referer_url: req.get('referer-url'),
 		user_agent: req.get('user-agent')
 	}
-<<<<<<< HEAD
-//	const statement = db.prepare('INSERT INTO access VALUES ()'); // Keys that we're inserting goes into ()
-//	const info = statement.run(logdata.remote_addr);
-=======
 	const statement = db.prepare('INSERT INTO access (remote_addr, remote_user, datetime, method, url, http_version, status, content_length, referer_url, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'); // Keys that we're inserting goes into ()
 	const info = statement.run(logdata.remote_addr, logdata.remote_user, logdata.datetime, logdata.method, logdata.url, logdata.http_version, logdata.status, logdata.content_length, logdata.referer_url, logdata.user_agent);
->>>>>>> 90827248aa8f6fc43ac1fb57221a5e5f6ff8ab9c
 	next();
 })
 
@@ -53,13 +48,9 @@ app.post('/user/new/', (req, res, next) => {
 		mood: req.body.mood,
 		diet: req.body.diet
 	}
-<<<<<<< HEAD
-
-=======
 	const statement = db.prepare('INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES (?, ?, ?, ?, ?, ?, ?)'); // referring to the variable names in our database (they don't have to be the same)
 	const info = statement.run(userdata.username, userdata.email, userdata.phone, userdata.location, userdata.relationship, userdata.mood, userdata.diet);
 	res.status(200).json({"message": "user " + userdata.username + " created"});
->>>>>>> 90827248aa8f6fc43ac1fb57221a5e5f6ff8ab9c
 	console.log(userdata);
 	console.log(info);
 })
@@ -69,14 +60,10 @@ app.get('/user/info/:username/', (req, res, next) => {
 	let userdata = {
 		username: req.params.username
 	}
-<<<<<<< HEAD
-	res.status(200).send(info)
-=======
 	const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?'); // select everything that matches from userinfo table
 	const info = statement.get(req.params.username);
 	res.status(200).json(info);
 	console.log(info);
->>>>>>> 90827248aa8f6fc43ac1fb57221a5e5f6ff8ab9c
 })
 
 // Delete user info endpoint
