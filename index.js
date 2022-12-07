@@ -20,8 +20,8 @@ app.use((req, res, next) => {
 	let logdata = {
 		remote_addr: req.ip,
 	}
-	const statement = db.prepare('INSERT INTO access () VALUES ()'); // Keys that we're inserting goes into ()
-	const info = statement.run(logdata.remote_addr);
+//	const statement = db.prepare('INSERT INTO access VALUES ()'); // Keys that we're inserting goes into ()
+//	const info = statement.run(logdata.remote_addr);
 	next();
 })
 
@@ -39,9 +39,6 @@ app.post('/user/new/', (req, res, next) => {
 		mood: req.body.mood,
 		diet: req.body.diet
 	}
-	// Ben - temp setup so I could postman a user into database to test my endpoints feel free to reject 
-		// const statement = db.prepare('INSERT INTO userinfo VALUES (0,?,?,?,?,?,?,?,?)');
-		// const info = statement.run(userdata.username, userdata.password, userdata.email, userdata.phone, "US", userdata.relationship, userdata.mood, userdata.diet);
 
 	console.log(userdata);
 })
@@ -51,24 +48,18 @@ app.get('/user/info/:username/', (req, res, next) => {
 	let userdata = {
 		username: req.params.username
 	}
-	// Ben - temp setup to check whether my endpoint was updating database correctly, feel free to reject 
-		// const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?');
-		// const info = statement.get(userdata.username);
 	res.status(200).send(info)
 })
 
-// Modify user info endpoint
-app.patch('/user/info/update/:username/', (req, res, next) => {
-	let userdata = {
-		username: req.params.username
-	}
-})
-
 // Delete user info endpoint
-app.delete('/user/delete/', (req, res, next) => {
+app.post('/user/delete/', (req, res, next) => {
 	let userdata = {
-		username: req.body.username
+		username: req.body.username,
+		password: req.body.password
 	}
+	const statement = db.prepare('DELETE FROM userinfo WHERE username = ? and password = ?');
+	const info = statement.run(userdata.username, userdata.password);
+	res.status(200).send(info);
 })
 
 app.get('/login', (req,res,next) => {
@@ -76,7 +67,7 @@ app.get('/login', (req,res,next) => {
 })
 
 app.get('/profile/', (req,res,next) => {
-	res.status(200).sendFile(path.resolve('profile_edit.html')); // send profile editing html file
+	res.status(200).sendFile(path.resolve('html_pages/profile_edit.html')); // send profile editing html file
 })
 
 app.post('/api/profile', (req,res,next) => {
