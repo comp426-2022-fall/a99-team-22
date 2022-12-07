@@ -9,6 +9,7 @@ Also, users can access other user's profile through specific
 endpoint.
 
 ## Video Demo
+https://unc.zoom.us/rec/play/VGcmL9mf3qytwAU1PuV1QpfDFoIdwV4a0aLOQahEacFfAKfl0AHvDwT0PNTyHn3cwgqBF8zOQDubczfV.jGpNboxiXAewHXUr?autoplay=true&startTime=1670453079000
 
 ## Dependencies
 ```
