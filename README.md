@@ -29,7 +29,7 @@ This currently works on Node v19.0.1
 
 ## Team mangement
 
-1. Matthew Kolsch - Review Manager
-2. Benjamin Hites - Project Manager
-3. Zhaokun Xu - Documentation Manager
+- Matthew Kolsch - Review Manager
+- Benjamin Hites - Project Manager
+- Zhaokun Xu - Documentation Manager
 
