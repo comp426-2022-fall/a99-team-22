@@ -2,7 +2,7 @@
 import database from 'better-sqlite3';
 
 // Create a new database connection (not necessarily a new database)
-const db = new database('test.db');
+const db = new database('user_info.db');
 
 // Check access log table (this table is a list of all the tables)
 const statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='access';`);
@@ -30,9 +30,8 @@ if ( access_row === undefined ) {
     try {
         db.exec(sqlInit);
     } catch (error) {
-        console.log(error);
+        console.log("error 1");
     }
-
 } else {
     console.log('Access log table exists.');
 }
@@ -57,7 +56,7 @@ if ( user_row === undefined ) {
     try {
         db.exec(sqlInit);
     } catch (error) {
-        console.log("error");
+        console.log("error 2");
     }
 } else {
     console.log('User info table exists.');

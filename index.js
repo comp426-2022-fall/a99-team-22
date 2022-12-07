@@ -16,14 +16,14 @@ const accesslog = fs.createWriteStream( './log_dir/access.log', { flags: 'a'});
 app.use(morgan('combined', { stream: accesslog }));
 
 // Extract access info from req and res
-app.use((req, res, next) => {
-	let logdata = {
-		remote_addr: req.ip,
-	}
-	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
-	const info = statement.run(logdata.remote_addr);
-	next();
-})
+// app.use((req, res, next) => {
+// 	let logdata = {
+// 		remote_addr: req.ip,
+// 	}
+// 	const statement = db.prepare('INSERT INTO access ()'); // Keys that we're inserting goes into ()
+// 	const info = statement.run(logdata.remote_addr);
+// 	next();
+// })
 
 var port = 5005
 
@@ -32,7 +32,7 @@ var port = 5005
 app.post('/user/new/', (req, res, next) => {
 	let userdata = {
 		username: req.body.username,
-		//password: req.body.password,
+		password: req.body.password,
 		email: req.body.email,
 		phone: req.body.phone,
 		location: req.body.location,
