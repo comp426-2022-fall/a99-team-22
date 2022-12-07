@@ -34,7 +34,7 @@ curl http:/localhost:5005/user/info/Fregley
 ```
 
 ### /user/info/update/:username/
-To be Implemented: Modify user's profile according to username and password
+To be Implemented: Modify user's username and password
 
 
 ### /user/delete/
