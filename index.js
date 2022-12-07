@@ -27,6 +27,14 @@ app.use((req, res, next) => {
 
 var port = 5005
 
+// Create user endpoint
+
+// Read user info endpoint
+
+// Modify user info endpoint
+
+// Delete user info endpoint
+
 app.get('/login', (req,res,next) => {
 	res.status(200).sendFile(path.resolve('html_pages/index.html'))
 })
