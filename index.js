@@ -28,12 +28,34 @@ app.use((req, res, next) => {
 var port = 5005
 
 // Create user endpoint
+app.post('/user/new/', (req, res, next) => {
+	let userdata = {
+		username: req.body.username,
+		password: req.body.password,
+		email: req.body.email,
+		phone: req.body.phone,
+		location: req.body.location,
+		relationship: req.body.relationship,
+		mood: req.body.mood,
+		diet: req.body.diet
+	}
+	console.log(userdata);
+})
 
 // Read user info endpoint
+app.get('/user/info/', (req, res, next) => {
+
+})
 
 // Modify user info endpoint
+app.patch('/user/info/update/', (req, res, next) => {
+
+})
 
 // Delete user info endpoint
+app.delete('/user/delete/', (req, res, next) => {
+
+})
 
 app.get('/login', (req,res,next) => {
 	res.status(200).sendFile(path.resolve('html_pages/index.html'))
