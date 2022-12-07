@@ -8,13 +8,13 @@
   <body>
     <main align="center">
         <h1>Login</h1>  
-	<form action="http://localhost:5005/auth" method="post">
+	<form action="http://localhost:5005/api/auth" method="post">
 		<label>Username:</label>
-		<input type="text" id="usrname"></input>
+		<input type="text" name="username"></input>
 		<br>
 		<div style="margin-top: 10px;">
 		<label>Password:</label>
-		<input type="text" id="pswd"></input>
+		<input type="text" name="password"></input>
 		</div>
 		<br>
 		<input style="margin-top: 10px;"type="submit" value="login"></input>

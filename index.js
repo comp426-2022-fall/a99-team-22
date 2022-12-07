@@ -57,6 +57,9 @@ app.post('/user/new/', (req, res, next) => {
 
 // Read user info endpoint
 app.get('/user/info/:username/', (req, res, next) => {
+	let userdata = {
+		username: req.params.username
+	}
 	const statement = db.prepare('SELECT * FROM userinfo WHERE username = ?'); // select everything that matches from userinfo table
 	const info = statement.get(req.params.username);
 	res.status(200).json(info);
@@ -78,12 +81,45 @@ app.delete('/user/delete/', (req, res, next) => {
 })
 
 app.get('/login', (req,res,next) => {
-	res.status(200).sendFile(path.resolve('html_pages/index.html'))
+	res.status(200).sendFile(path.resolve('html_pages/index.html')) // send login page html file
 })
 
-app.post('/auth', (req,res,next) => {
+app.get('/profile/', (req,res,next) => {
+	res.status(200).sendFile(path.resolve('profile_edit.html')); // send profile editing html file
+})
+
+app.post('/api/profile', (req,res,next) => {
+	console.log("User attempting to update profile info");
+	let userdata = {                    // assemble payload into userdata format
+		remote_addr: req.ip,
+		username: req.body.username,
+		email: req.body.email,
+		phone: req.body.phone,
+		location: req.body.location,
+		relationship: req.body.relationship,
+		mood: req.body.mood,
+		diet: req.body.diet,
+		password: req.body.password
+	}
+	const statement = db.prepare('UPDATE userinfo SET email=?,phone=?,location=?,relationship=?,mood=?,diet=? WHERE username = ? and password = ?'); // Update row w/ usrname & pswd combo
+	const info = statement.run(userdata.email,userdata.email, userdata.phone, userdata.relationship, userdata.mood, userdata.diet, userdata.username, userdata.password); // Run statement
+	res.redirect('/user/info/' + userdata.username);
+})
+
+app.post('/api/auth', (req,res,next) => {
 	console.log("User attempting to authenticate");
-	res.status(200).send("Replace with user auth")
+	let userLoginInfo = { 		// assemble payload into login format, TODO switch to hash passwords for security
+		username: req.body.username,
+		password: req.body.password
+	}
+	const statement = db.prepare('SELECT username FROM userinfo WHERE username = ? and password = ?'); // Get username where login info matches
+	const info = statement.get(userLoginInfo.username, userLoginInfo.password);
+	if(info == undefined){
+		res.redirect('/login');
+	}
+	else{
+		res.redirect('/user/info/' + info.username);
+	}			// if login was valid, redirect to that users profile page, otherwise refresh login
 })
 
 app.get('/*', (req,res,next) => {

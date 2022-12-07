@@ -9,7 +9,6 @@ const statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' 
 
 // To get information out of statement response
 let access_row = statement.get();
-
 // Create table if if doesn't exist
 if ( access_row === undefined ) {
     const sqlInit = `
@@ -40,6 +39,7 @@ const user_statement = db.prepare(`SELECT name FROM sqlite_master WHERE type='ta
 let user_row = user_statement.get();
 
 if ( user_row === undefined ) {
+
     const sqlInit = `
         CREATE TABLE userinfo (
             id INTEGER PRIMARY KEY,
@@ -62,5 +62,4 @@ if ( user_row === undefined ) {
 } else {
     console.log('User info table exists.');
 }
-
 export default db;
