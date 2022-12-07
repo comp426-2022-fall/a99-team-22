@@ -48,3 +48,6 @@ Prepare to wrapping up the coding part in one or two days and
 then do the demo video.
 
 ### Meeting #4: Dec.07 4:00 p.m
+- Testing the code and solving the last few bugs
+- Record the demo vedio
+!! Great to work with the team !!
