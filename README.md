@@ -23,9 +23,9 @@ endpoint.
 
 This currently works on Node v19.0.1
 
-1. Clone this repository to your local pc
+1. Clone this repository to your local
 2. run `npm install` to install dependencies 
-3. To run the server, use `npm test` and the server will listen default to port 5000
+3. To test the server, use `npm test` and the server will listen to port 5005
 
 ## Team mangement
 
