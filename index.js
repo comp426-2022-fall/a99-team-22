@@ -39,7 +39,11 @@ app.post('/user/new/', (req, res, next) => {
 		mood: req.body.mood,
 		diet: req.body.diet
 	}
+	const statement = db.prepare('INSERT INTO userinfo (username, email, phone, location, relationship, mood, diet) VALUES (?, ?, ?, ?, ?, ?, ?'); // referring to the variable names in our database (they don't have to be the same)
+	const info = statement.run(userdata.username, userdata.email, userdata.phone, userdata.location, userdata.relationship, userdata.mood, userdata.diet);
+	res.status(200).json({"messgae": "user " + userdata.username + " created"});
 	console.log(userdata);
+	console.log(info);
 })
 
 // Read user info endpoint
